@@ -1,0 +1,91 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Publishing Portal API",
+        "description": "This is the API for publishing content to the Eats Network portal. Please be aware that all content submitted to this API _will_ be public, event content submitted for the staging environment.",
+        "version": "1.0.0"
+    },
+    "host": "api.portal.eats-tweets.com",
+    "basePath": "/v1",
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/recipes": {
+            "get": {
+                "summary": "Returns a list of recipes.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Recipe API"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new recipe",
+                "description": "Be aware that this will also *publish* the recipe by default. If you do not want this to be publicly visible, please change its visibility on creation.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Recipe API"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Recipe was successfully created"
+                    },
+                    "422": {
+                        "description": "Required fields were not provided when attempting to create the recipe"
+                    }
+                }
+            }
+        },
+        "/recipe/id": {
+            "get": {
+                "summary": "Retrieves a recipe.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Recipe API"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Not authorized to retrieved this recipe."
+                    },
+                    "404": {
+                        "description": "Recipe was not found. Note that this does not include recipes that the currently authentified user does not have access to"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Updates a recipe",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Recipe API"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Recipe was successfully updated"
+                    },
+                    "409": {
+                        "description": "Version mismatch. Changes were made to the recipe that were not accounted for in the update."
+                    },
+                    "422": {
+                        "description": "Required fields were not provided"
+                    }
+                }
+            }
+        }
+    }
+}
